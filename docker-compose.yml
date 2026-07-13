@@ -58,6 +58,7 @@ services:
 
 ### Workspace Utilities ##################################
     workspace:
+      image: bridge-private-runtime-workspace:local
       build:
         context: ./workspace
         args:
@@ -188,6 +189,7 @@ services:
 ### PHP-FPM ##############################################
     php-fpm:
       restart: always
+      image: bridge-private-runtime-php-fpm:local
       build:
         context: ./php-fpm
         args:
@@ -260,6 +262,7 @@ services:
         - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
         - docker-in-docker:/certs/client
+        - /run/bridge-runtime:/run/bridge-runtime:ro
       expose:
         - "9000"
       extra_hosts:
@@ -354,6 +357,7 @@ services:
 ### NGINX Server #########################################
     nginx:
       restart: always
+      image: bridge-private-runtime-nginx:local
       build:
         context: ./nginx
         args:
@@ -1814,4 +1818,3 @@ services:
         - ${DATA_PATH_HOST}/tomcat/webapps:/usr/local/tomcat/webapps
         - ${DATA_PATH_HOST}/tomcat/logs:/usr/local/tomcat/logs
       # restart: always
-
