@@ -187,6 +187,7 @@ services:
 
 ### PHP-FPM ##############################################
     php-fpm:
+      restart: always
       build:
         context: ./php-fpm
         args:
@@ -352,6 +353,7 @@ services:
 
 ### NGINX Server #########################################
     nginx:
+      restart: always
       build:
         context: ./nginx
         args:
